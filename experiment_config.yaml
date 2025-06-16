@@ -1,0 +1,67 @@
+# YOLOv11 Experiment Configuration
+
+# Dataset configuration
+dataset:
+  path: "/hdd1t/mduc/ultralytics-gdrive-ops/logs/data_test_1"
+  classes:
+    0: "rach_long_vai"
+    1: "rach_tai_bien" 
+    2: "ban_soi_lan_soi_day_soi"
+    3: "tuot_hang"
+
+# Training configuration
+training:
+  # Model selection (yolo11n.pt, yolo11s.pt, yolo11m.pt, yolo11l.pt, yolo11x.pt)
+  pretrained_model: "yolo11n.pt"  # Nano version for faster training
+  
+  # Training parameters
+  epochs: 10              # Number of training epochs
+  batch: 8                # Batch size
+  imgsz: 960             # Image size
+  
+  # Data augmentation
+  fliplr: 0.8            # Horizontal flip probability
+  flipud: 0.6            # Vertical flip probability
+  scale: 0.1             # Scale augmentation
+  
+  # Training settings
+  patience: 200          # Early stopping patience
+  save_period: -1        # Save checkpoint every N epochs (-1 to disable)
+  exist_ok: true         # Allow overwriting existing runs
+  
+  # Optimizer settings
+  lr0: 0.01              # Initial learning rate
+  lrf: 0.1               # Final learning rate factor
+  momentum: 0.937        # SGD momentum
+  weight_decay: 0.0005   # Optimizer weight decay
+  
+  # Validation settings
+  val: true              # Validate/test during training
+  plots: true            # Generate training plots
+
+# Testing/Validation configuration
+testing:
+  conf: 0.25             # Confidence threshold
+  iou: 0.6               # IoU threshold for NMS
+  max_det: 300           # Maximum detections per image
+  save_json: true        # Save results in COCO JSON format
+  save_hybrid: true      # Save hybrid results
+  plots: true            # Generate validation plots
+
+# Export configuration
+export:
+  formats: ['onnx', 'torchscript']  # Export formats
+  onnx_opset: 12         # ONNX opset version
+  dynamic: true          # Dynamic input shapes
+
+# Experiment settings
+experiment:
+  name: "yolov11_data_test_1_experiment"
+  save_dir: "experiments"
+  device: null           # Auto-select device (null for auto, 0 for GPU 0, 'cpu' for CPU)
+  
+# Weights & Biases tracking (optional)
+wandb:
+  enabled: false         # Set to true to enable W&B logging
+  project: "yolov11_experiments"
+  name: null             # Run name (null for auto-generation) 
